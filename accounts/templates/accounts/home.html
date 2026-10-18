@@ -1,0 +1,32 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}DiliSpace | Cyber World{% endblock %}
+{% block content %}
+<div class="container">
+    <section class="hero">
+        <p class="eyebrow">[ KELAJAKKA XUSH KELIBSIZ ]</p>
+        <h1>Chegaralarni buz.<br><span class="green">Yarat.</span></h1>
+        <p class="muted">
+            Dasturlash, texnologiya va kreativ g‘oyalar olamiga kir.
+            O‘z loyihalaringni yarat va raqamli kelajagingni boshla.
+        </p>
+        {% if user.is_authenticated %}
+            <a class="btn primary" href="{% url 'dashboard' %}">Dashboardga o‘tish ↗</a>
+        {% else %}
+            <a class="btn primary" href="{% url 'register' %}">Boshlash ↗</a>
+            <a class="btn" href="{% url 'login' %}">Tizimga kirish</a>
+        {% endif %}
+    </section>
+
+    <section class="panel">
+        <p class="eyebrow">[ SYSTEM TERMINAL ]</p>
+        <div class="terminal">
+            <span class="green">user@dilispace:~$</span> python start.py<br>
+            [ OK ] Interface loaded<br>
+            [ OK ] Security module ready<br>
+            [ OK ] Cyber dashboard available<br>
+            <span class="green">user@dilispace:~$ _</span>
+        </div>
+    </section>
+</div>
+{% endblock %}

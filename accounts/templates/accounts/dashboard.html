@@ -1,0 +1,41 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}Dashboard | DiliSpace{% endblock %}
+{% block content %}
+<div class="container">
+    <p class="eyebrow">[ SHAXSIY BOSHQARUV TIZIMI ]</p>
+    <h1>Salom, <span class="green">{{ user.username }}</span>!</h1>
+    <p class="muted">DiliSpace shaxsiy terminalingizga xush kelibsiz.</p>
+
+    <div class="grid">
+        <section class="panel">
+            <p class="muted">TIZIM HOLATI</p>
+            <div class="stat">ONLINE</div>
+            <p class="muted">Saytga ulanish faol.</p>
+        </section>
+        <section class="panel">
+            <p class="muted">FOYDALANUVCHI</p>
+            <div class="stat">{{ user.username }}</div>
+            <p class="muted">Sizning akkauntingiz.</p>
+        </section>
+        <section class="panel">
+            <p class="muted">PROFIL</p>
+            <div class="stat">01</div>
+            <a href="{% url 'profile' %}">Profilni ochish →</a>
+        </section>
+    </div>
+
+    <section class="panel" style="margin-top:22px">
+        <p class="eyebrow">[ TERMINAL ]</p>
+        <div class="terminal">
+            <span class="green">user@dilispace:~$</span> whoami<br>
+            {{ user.username }}<br>
+            <span class="green">user@dilispace:~$</span> system-status<br>
+            [ OK ] Authentication: active<br>
+            [ OK ] Dashboard: loaded<br>
+            [ OK ] Matrix interface: running<br>
+            <span class="green">user@dilispace:~$ _</span>
+        </div>
+    </section>
+</div>
+{% endblock %}

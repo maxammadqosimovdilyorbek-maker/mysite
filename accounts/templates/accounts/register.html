@@ -1,0 +1,22 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}Akkaunt yaratish | DiliSpace{% endblock %}
+{% block content %}
+<div class="container">
+    <section class="panel form-panel">
+        <p class="eyebrow">[ YANGI FOYDALANUVCHI ]</p>
+        <h2>Akkaunt yaratish</h2>
+        <p class="muted">DiliSpace olamiga qo‘shiling.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="primary" type="submit">Akkaunt yaratish →</button>
+        </form>
+
+        <p class="muted">Akkauntingiz bormi?
+            <a href="{% url 'login' %}">Kirish</a>
+        </p>
+    </section>
+</div>
+{% endblock %}

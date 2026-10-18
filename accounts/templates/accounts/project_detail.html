@@ -1,0 +1,42 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}{{ project.name }} | DiliSpace{% endblock %}
+
+{% block content %}
+<div class="container">
+    <p class="eyebrow">[ PROJECT FILE / #{{ project.pk }} ]</p>
+    <section class="panel">
+        <h1>{{ project.name }}</h1>
+        <p class="muted">{{ project.description|default:"Tavsif kiritilmagan." }}</p>
+
+        <div class="grid">
+            <div>
+                <p class="muted">LOYIHA TURI</p>
+                <h2>{{ project.get_project_type_display }}</h2>
+            </div>
+            <div>
+                <p class="muted">DIZAYN</p>
+                <h2>{{ project.get_design_display }}</h2>
+            </div>
+            <div>
+                <p class="muted">HOLAT</p>
+                <h2>{{ project.get_status_display }}</h2>
+            </div>
+        </div>
+
+        <p class="muted">Funksiyalar</p>
+        <p>{{ project.features|default:"Hali funksiyalar belgilanmagan." }}</p>
+        <p class="muted">Yaratilgan: {{ project.created_at|date:"d.m.Y H:i" }}</p>
+
+        <a class="btn" href="{% url 'studio' %}">← Studiyaga qaytish</a>
+
+        <form method="post"
+              action="{% url 'project_delete' project.pk %}"
+              style="margin-top:25px"
+              onsubmit="return confirm('Ushbu loyihani o‘chirmoqchimisiz?')">
+            {% csrf_token %}
+            <button type="submit">Loyihani o‘chirish</button>
+        </form>
+    </section>
+</div>
+{% endblock %}

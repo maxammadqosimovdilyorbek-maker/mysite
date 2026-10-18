@@ -1,0 +1,21 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}Mening profilim | DiliSpace{% endblock %}
+{% block content %}
+<div class="container">
+    <section class="panel">
+        <p class="eyebrow">[ FOYDALANUVCHI PROFILI ]</p>
+        <h1>{{ user.username }}</h1>
+        <p class="muted">Akkaunt ma’lumotlari</p>
+        <hr style="border-color:#00ff8835">
+        <p>Username: <span class="green">{{ user.username }}</span></p>
+        <p>Email:
+            <span class="green">{{ user.email|default:"Kiritilmagan" }}</span>
+        </p>
+        <p>Ro‘yxatdan o‘tgan sana:
+            <span class="green">{{ user.date_joined|date:"d.m.Y" }}</span>
+        </p>
+        <a class="btn" href="{% url 'dashboard' %}">← Dashboardga qaytish</a>
+    </section>
+</div>
+{% endblock %}

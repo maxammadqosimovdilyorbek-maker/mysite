@@ -1,0 +1,74 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}Project Studio | DiliSpace{% endblock %}
+
+{% block content %}
+<div class="container">
+    <p class="eyebrow">[ DILISPACE / PROJECT STUDIO ]</p>
+    <h1>Build your <span class="green">future_</span></h1>
+    <p class="muted">
+        Sayt, web-ilova, mobil ilova yoki o‘yin g‘oyangni
+        shu yerda rejalashtir va loyihalaringni boshqar.
+    </p>
+
+    <div class="grid studio-cards" style="margin-top:30px">
+        <section class="panel">
+            <div class="eyebrow">01 / WEB</div>
+            <h2>Veb-sayt</h2>
+            <p class="muted">Portfolio, do‘kon, blog yoki biznes sayti.</p>
+            <a class="btn" href="{% url 'project_create' %}">+ Yaratish</a>
+        </section>
+
+        <section class="panel">
+            <div class="eyebrow">02 / APP</div>
+            <h2>Mobil ilova</h2>
+            <p class="muted">Android yoki iOS ilovasi g‘oyasini rejalashtir.</p>
+            <a class="btn" href="{% url 'project_create' %}">+ Yaratish</a>
+        </section>
+
+        <section class="panel">
+            <div class="eyebrow">03 / GAME</div>
+            <h2>O‘yin va bot</h2>
+            <p class="muted">O‘yin yoki Telegram bot loyihasini boshlash.</p>
+            <a class="btn" href="{% url 'project_create' %}">+ Yaratish</a>
+        </section>
+    </div>
+
+    <section style="margin-top:50px">
+        <p class="eyebrow">[ YOUR WORKSPACE ]</p>
+        <h2>Mening loyihalarim</h2>
+
+        {% if projects %}
+            <div class="grid">
+                {% for project in projects %}
+                    <article class="panel">
+                        <p class="eyebrow">{{ project.get_project_type_display }}</p>
+                        <h2>{{ project.name }}</h2>
+                        <p class="muted">{{ project.description|default:"Tavsif kiritilmagan."|truncatechars:120 }}</p>
+                        <p class="muted">
+                            Dizayn: {{ project.get_design_display }}
+                        </p>
+                        <p>
+                            <span class="green">●</span>
+                            {{ project.get_status_display }}
+                        </p>
+                        <a class="btn" href="{% url 'project_detail' project.pk %}">
+                            Loyihani ochish →
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="panel">
+                <h2>Hali loyihangiz yo‘q</h2>
+                <p class="muted">
+                    Birinchi g‘oyangizni yarating. Saqlangan loyihalaringiz shu yerda ko‘rinadi.
+                </p>
+                <a class="btn primary" href="{% url 'project_create' %}">
+                    + Birinchi loyiham
+                </a>
+            </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+<section class="panel" style="margin:25px 0">
+    <p class="eyebrow">[ CREATIVE WORKSPACE ]</p>
+    <h2>O‘z loyihangni yarat</h2>
+    <p class="muted">
+        Yangi sayt, ilova yoki o‘yin g‘oyangni rejalashtirishni boshla.
+    </p>
+    <a class="btn primary" href="{% url 'studio' %}">
+        Project Studio ↗
+    </a>
+</section>
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}DiliSpace{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <nav class="navbar">
+        <a class="logo" href="{% url 'home' %}">DiliSpace_</a>
+        <div class="navlinks">
+            <a href="{% url 'home' %}">Bosh sahifa</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'studio' %}">Project Studio</a>
+                <a href="{% url 'profile' %}">Profil</a>
+                <form method="post" action="{% url 'logout' %}" style="margin:0">
+                    {% csrf_token %}
+                    <button type="submit">Chiqish</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Kirish</a>
+                <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <footer>DILISPACE // LEARN • CREATE • BUILD</footer>
+
+    <script>
+    (() => {
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+        const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/{}[]";
+        let drops = [];
+        let width = 0, height = 0, timer;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            drops = Array(Math.ceil(width / 17)).fill(1);
+        }
+
+        function draw() {
+            ctx.fillStyle = "rgba(3, 8, 6, 0.12)";
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = "#00ff88";
+            ctx.font = "14px monospace";
+            drops.forEach((y, i) => {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(char, i * 17, y * 17);
+                if (y * 17 > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+
+        resize();
+        window.addEventListener("resize", resize);
+        timer = window.setInterval(draw, 65);
+        window.addEventListener("pagehide", () => clearInterval(timer), {once:true});
+    })();
+    </script>
+</body>
+</html>

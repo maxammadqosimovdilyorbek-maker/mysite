@@ -1,0 +1,20 @@
+
+{% extends "accounts/base.html" %}
+{% block title %}Yangi loyiha | DiliSpace{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="panel form-panel">
+        <p class="eyebrow">[ NEW PROJECT / 01 ]</p>
+        <h1>G‘oyangni <span class="green">yarat.</span></h1>
+        <p class="muted">Loyihang haqida ma’lumotlarni kiriting.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="primary" type="submit">Loyihani saqlash ↗</button>
+            <a class="btn" href="{% url 'studio' %}">Bekor qilish</a>
+        </form>
+    </section>
+</div>
+{% endblock %}
